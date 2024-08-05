@@ -72,7 +72,7 @@ func (c Collector) reportPath() string {
 	if c.ReportPath != "" {
 		return c.ReportPath
 	}
-	return "/opt/puppetlabs/puppet/cache/state/last_run_report.yaml"
+	return "/var/lib/puppet/state/last_run_report.yaml"
 }
 
 type Logger interface {
