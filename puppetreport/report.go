@@ -47,7 +47,7 @@ func (r runReport) interpret() interpretedReport {
 		}
 	}
 	result := interpretedReport{
-		RunAt:          asUnixSeconds(r.Time),
+		RunAt:          asUnixSeconds(ReportTime),
 		RunDuration:    r.totalDuration(),
 		CatalogVersion: r.ConfigurationVersion,
 	}
