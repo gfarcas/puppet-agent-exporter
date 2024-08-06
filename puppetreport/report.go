@@ -25,7 +25,7 @@ import (
 
 type runReport struct {
 	ConfigurationVersion string                      `yaml:"configuration_version"`
-	Time                 Time                        `yaml:"time"`
+	Time                 string                      `yaml:"time"`
 	TransactionCompleted bool                        `yaml:"transaction_completed"`
 	ReportFormat         int                         `yaml:"report_format"`
 	ResourceStatuses     map[string]resourceStatus   `yaml:"resource_statuses"`
@@ -39,6 +39,12 @@ func (r runReport) interpret() interpretedReport {
 	ReportTime, err = time.Parse("2006-01-02 15:04:05.000000000 -07:00", r.Time)
 	if err != nil {
 		ReportTime, err = time.Parse(time.RFC3339, r.Time)
+		if err != nil {
+			// Log the error or handle it in some way
+			print("Failed to parse time: %v", err)
+			// Optionally, set ReportTime to a default value
+			ReportTime = time.Now()
+		}
 	}
 	result := interpretedReport{
 		RunAt:          asUnixSeconds(r.Time),
